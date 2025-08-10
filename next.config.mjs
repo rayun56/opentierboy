@@ -28,15 +28,8 @@ const nextConfig = {
   transpilePackages: ['next-mdx-remote'],
 
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '**/placeholder-image.png',
-      },
-    ],
-  },
+      unoptimized: true
+  }
 };
 
 export default nextConfig;

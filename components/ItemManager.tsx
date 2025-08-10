@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import {toast} from "sonner";
 import ItemCreator from "@/components/ItemCreator";
+import URLItemCreator from "@/components/URLItemCreator";
 import ItemSetSelector from "@/components/ItemSetSelector";
 import {DashboardIcon} from "@radix-ui/react-icons";
 import {cn} from "@/lib/utils";
@@ -58,6 +59,7 @@ const ItemManager: React.FC<ItemManagerProps> = ({
 
   const [isItemCreatorOpen, setIsItemCreatorOpen] = useState(false);
   const [isItemSetSelectorOpen, setIsItemSetSelectorOpen] = useState(false);
+  const [isURLItemCreatorOpen, setIsURLItemCreatorOpen] = useState(false);
 
   const itemSets = useMemo(() => {
     const sets: ItemSet[] = [];
@@ -144,6 +146,9 @@ const ItemManager: React.FC<ItemManagerProps> = ({
             <DropdownMenuItem onSelect={() => setIsItemCreatorOpen(true)}>
               From your device
             </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setIsURLItemCreatorOpen(true)}>
+              From an external URL
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator/>
           <DropdownMenuItem onSelect={handleReset}>Reset</DropdownMenuItem>
@@ -182,6 +187,18 @@ const ItemManager: React.FC<ItemManagerProps> = ({
             </DialogDescription>
           </DialogHeader>
           <ItemCreator onItemsCreate={handleCreateItems}/>
+        </DialogContent>
+      </Dialog>
+      
+      <Dialog open={isURLItemCreatorOpen} onOpenChange={setIsURLItemCreatorOpen}>
+        <DialogContent className="max-h-[80vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Add Items from URL</DialogTitle>
+            <DialogDescription>
+              Enter URLs to add items. Click &#39;Submit&#39; for each URL.
+            </DialogDescription>
+          </DialogHeader>
+          <URLItemCreator onItemsCreate={handleCreateItems}/>
         </DialogContent>
       </Dialog>
 
