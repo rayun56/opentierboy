@@ -53,7 +53,7 @@ const URLItemCreator: React.FC<ItemCreatorProps> = ({onItemsCreate}) => {
     }
   }, [tierCortex, uploadedItems, onItemsCreate, form]);
 
-  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUrlChange = () => {
     if (urlInputRef.current) {
       const url = urlInputRef.current.value;
       if (url) {
@@ -91,6 +91,7 @@ const URLItemCreator: React.FC<ItemCreatorProps> = ({onItemsCreate}) => {
     );
   };
 
+  // @ts-ignore
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col overflow-y-hidden">

@@ -22,6 +22,7 @@ interface SimplifiedTier {
 interface SimplifiedItem {
   i: string; // id
   c?: string; // content (only for custom items)
+  d?: string; // imageUrl (only for custom items)
 }
 
 export interface TierWithSimplifiedItems extends Omit<Tier, 'items'> {
@@ -119,7 +120,7 @@ export class TierCortex {
       const tiers = simplifiedTiers.map(simplifiedTier => ({
         id: simplifiedTier.i,
         name: simplifiedTier.n,
-        items: simplifiedTier.t.map(item => this.resolveItem(item.i, item.c))
+        items: simplifiedTier.t.map(item => this.resolveItem(item.i, item.c, item.d ? item.d : undefined))
       }));
 
       return {title, tiers};
@@ -218,7 +219,7 @@ export class TierCortex {
     }
   }
 
-  private resolveItem(itemId: string, content?: string): Item {
+  private resolveItem(itemId: string, content?: string, url?: string): Item {
     const packageItem = this.packageItemLookup[itemId];
     if (packageItem) return packageItem;
 
@@ -228,7 +229,13 @@ export class TierCortex {
         return {
           id: customItem.i,
           content: content || customItem.c,
-          imageUrl: customItem.d,
+          imageUrl: url || customItem.d,
+        };
+      } else if (url) {
+        return {
+          id: itemId,
+          content: content || '',
+          imageUrl: url,
         };
       }
     }

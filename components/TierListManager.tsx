@@ -69,7 +69,8 @@ const TierListManager: React.FC<TierListManagerProps> = ({initialItemSet, initia
       ...tier,
       items: tier.items.map(item => ({
         i: item.id,
-        c: tierCortex.isCustomItem(item.id) ? item.content : undefined
+        c: tierCortex.isCustomItem(item.id) ? item.content : undefined,
+        d: item.imageUrl ?? ''
       }))
     }));
 
